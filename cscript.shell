@@ -1,0 +1,40 @@
+#!/bin/bash
+
+n=1
+last=50
+
+if [[ $3 -gt 20 ]]
+then
+ while [ $n -lt $last ]
+ do
+  head -c 10000000 /dev/urandom > upload$n.txt ;
+  head -c 10000000 /dev/urandom > ../server/down$n.txt ;
+  n=$(($n+1)) ;
+ done
+fi
+
+n=1
+while [ $n -lt $last ]
+do
+./TigerC <<< "connect 127.0.0.1 $1 $2
+get down$n.txt
+put upload$n.txt
+exit" &
+n=$(($n+1))
+done
+
+sleep 5
+
+if [[ $3 -gt 10 ]]
+then
+
+sleep 5
+n=1
+while [ $n -lt $last ]
+do
+ diff upload$n.txt ../server/upload$n.txt;
+ diff down$n.txt ../server/down$n.txt ;
+ n=$(($n+1)) ;
+done
+
+fi
