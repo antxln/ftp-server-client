@@ -9,20 +9,20 @@ program. The server and client support login/logout and getting and sending file
 
   Build
   ```
-  gcc server.c -pthread -o server
+  gcc server.c -pthread -o tigers
   ```
   Run
   ```
-  ./server 127.0.0.1
+  ./tigers 127.0.0.1
   ```
 ### Client
   Build
   ```
-  gcc client.c -o client
+  gcc client.c -o tigerc
   ```
   Run
   ```
-  ./client
+  ./tigerc
   ```
 
 ## Message Protocol
